@@ -12,8 +12,13 @@ gb_model = joblib.load(os.path.join(models_dir, "gradient_boosting_model.pkl")) 
 rf_model = joblib.load(os.path.join(models_dir, "random_forest_classifier.pkl"))  # Modelo de clasificación
 
 # Cargar el preprocesador y el encoder
-preprocessor = joblib.load(os.path.join(models_dir, "preprocessor.pkl"))  # Preprocesador
-encoder = joblib.load(os.path.join(models_dir, "encoder.pkl"))  # Encoder de variables categóricas
+preprocessor = joblib.load(os.path.join(models_dir, "preprocessor.pkl"))  # Preprocesador de datos numéricos
+encoder = joblib.load(os.path.join(models_dir, "encoder.pkl"))  # OneHotEncoder para variables categóricas
+
+# Verificar que el encoder se haya cargado correctamente
+if not hasattr(encoder, "transform"):
+    st.error("Error al cargar encoder.pkl. Asegúrate de que fue guardado correctamente como un OneHotEncoder.")
+    st.stop()
 
 # Título de la Aplicación
 st.title("🏠 Predicción de Precios y Tipo de Habitación en Airbnb NYC")
@@ -23,7 +28,7 @@ st.markdown("""
 Esta aplicación permite predecir el **precio estimado** de un alojamiento en Airbnb NYC y clasificar el **tipo de habitación** en función de sus características.
 """)
 
-# Definir opciones de "Neighbourhood Group"
+# Definir opciones de "Neighbourhood Group" y "Room Type"
 neighbourhood_groups = ["Brooklyn", "Manhattan", "Queens", "Bronx", "Staten Island"]
 room_types = ["Entire home/apt", "Private room", "Shared room"]
 
@@ -57,7 +62,7 @@ input_data = pd.DataFrame({
 # Botón para predecir
 if st.sidebar.button("✨ Predecir"):
 
-    # Aplicar encoding a las variables categóricas
+    ### 🔹 PREPROCESAMIENTO DE VARIABLES CATEGÓRICAS
     input_data_encoded = encoder.transform(input_data[["neighbourhood_group", "room_type"]])
     input_data_encoded_df = pd.DataFrame(
         input_data_encoded, 
@@ -65,29 +70,42 @@ if st.sidebar.button("✨ Predecir"):
         index=input_data.index
     )
 
-    # Combinar variables numéricas con las categóricas codificadas
-    input_data_final = pd.concat([
-        input_data.drop(columns=["neighbourhood_group", "room_type"]).reset_index(drop=True),
-        input_data_encoded_df.reset_index(drop=True)
-    ], axis=1)
+    ### 🔹 PREPROCESAMIENTO PARA REGRESIÓN (Predicción de Precio)
+    # Excluir 'room_type' ya que no se usó en la regresión
+    input_data_reg = input_data.drop(columns=["room_type"]).reset_index(drop=True)
+    input_data_reg = pd.concat([input_data_reg, input_data_encoded_df], axis=1)
 
-    # Asegurar que las columnas coincidan con las usadas en el entrenamiento
+    # Asegurar que las columnas coincidan con el entrenamiento
     for col in preprocessor.feature_names_in_:
-        if col not in input_data_final.columns:
-            input_data_final[col] = 0  # Rellenar con 0 si falta alguna columna
+        if col not in input_data_reg.columns:
+            input_data_reg[col] = 0  # Rellenar con 0 si falta alguna columna
 
-    # Aplicar preprocesamiento
-    input_data_final = preprocessor.transform(input_data_final)
+    # Transformar los datos con el preprocesador
+    input_data_reg = preprocessor.transform(input_data_reg)
 
+    ### 🔹 PREPROCESAMIENTO PARA CLASIFICACIÓN (Tipo de Habitación)
+    # Excluir 'price' ya que no se usó en la clasificación
+    input_data_class = input_data.drop(columns=["host_ratio", "review_score"]).reset_index(drop=True)
+    input_data_class = pd.concat([input_data_class, input_data_encoded_df], axis=1)
+
+    # Asegurar que las columnas coincidan con el entrenamiento
+    for col in preprocessor.feature_names_in_:
+        if col not in input_data_class.columns:
+            input_data_class[col] = 0  # Rellenar con 0 si falta alguna columna
+
+    # Transformar los datos con el preprocesador
+    input_data_class = preprocessor.transform(input_data_class)
+
+    ### 🔹 PREDICCIONES
     # Predicción de precio con el modelo de regresión
-    price_log_pred = gb_model.predict(input_data_final)
+    price_log_pred = gb_model.predict(input_data_reg)
     price_pred = np.expm1(price_log_pred)  # Transformar de vuelta a escala original
 
     # Predicción de tipo de habitación con el modelo de clasificación
-    room_pred = rf_model.predict(input_data_final)[0]
-    room_proba = rf_model.predict_proba(input_data_final)
+    room_pred = rf_model.predict(input_data_class)[0]
+    room_proba = rf_model.predict_proba(input_data_class)
 
-    # Mostrar resultados
+    ### 🔹 MOSTRAR RESULTADOS
     st.subheader("📌 Resultados de la Predicción")
     st.success(f"💰 **Precio Estimado:** ${price_pred[0]:,.2f}")
     
