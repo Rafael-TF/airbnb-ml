@@ -1,11 +1,25 @@
 import streamlit as st
 import joblib
+import os
 import pandas as pd
 import numpy as np
 
+# Definir rutas correctas para los modelos
+gb_model_path = os.path.join("models", "gradient_boosting_model.pkl")
+rf_model_path = os.path.join("models", "random_forest_classifier.pkl")
+
+# Verificar que los archivos existen antes de cargarlos
+if not os.path.exists(gb_model_path):
+    st.error(f"Error: No se encontró el archivo {gb_model_path}. Asegúrate de ejecutar el notebook para entrenar los modelos.")
+    st.stop()
+
+if not os.path.exists(rf_model_path):
+    st.error(f"Error: No se encontró el archivo {rf_model_path}. Asegúrate de ejecutar el notebook para entrenar los modelos.")
+    st.stop()
+
 # Cargar los modelos entrenados
-gb_model = joblib.load("gradient_boosting_model.pkl")  # Modelo de regresión
-rf_model = joblib.load("random_forest_classifier.pkl")  # Modelo de clasificación
+gb_model = joblib.load(gb_model_path)
+rf_model = joblib.load(rf_model_path)
 
 # Título de la Aplicación
 st.title("🏠 Predicción de Precios y Tipo de Habitación en Airbnb NYC")
