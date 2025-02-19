@@ -93,14 +93,25 @@ Instalar los paquetes requeridos con pip:
 ```bash
 pip install -r requirements.txt
 ```
+Si no tienes **Streamlit** instalado, puedes hacerlo con:
+```bash
+pip install streamlit
+```
 
-### 🎯 **3️⃣ Ejecutar la Aplicación en Streamlit**
+### 🎯 **3️⃣ Generar los Modelos**
+Antes de ejecutar la aplicación, es necesario generar los modelos. Para ello, ejecuta el siguiente notebook:
+```bash
+jupyter notebook notebooks/airbnb_regression.ipynb
+jupyter notebook notebooks/airbnb_classification.ipynb
+```
+Esto creará la carpeta `models/` con los modelos entrenados.
+
+### 🎯 **4️⃣ Ejecutar la Aplicación en Streamlit**
 Ejecuta el siguiente comando para abrir la aplicación:  
 ```bash
 streamlit run app.py
 ```
 💡 Esto abrirá la aplicación en tu navegador en [http://localhost:8501/](http://localhost:8501/).  
-
 ---
 
 ## 📂 **Estructura del Repositorio**
