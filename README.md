@@ -56,9 +56,9 @@ Ambos modelos fueron **optimizados con `RandomizedSearchCV`** y evaluados con **
 | **AUC**       | 92.16%   |
 
 📌 **Interpretación:**  
-- El modelo **Random Forest Classifier** obtiene un **Accuracy del 84.36%**, lo que indica una alta capacidad para clasificar correctamente los tipos de habitación.  
-- **AUC de 92.16%** confirma que el modelo diferencia bien entre las clases.  
-- **F1-Score de 84.25%** sugiere que el balance entre precisión y recall es óptimo.  
+El modelo **Random Forest Classifier** obtiene un **Accuracy del 84.36%**, lo que indica una alta capacidad para clasificar correctamente los tipos de habitación.  
+**AUC de 92.16%** confirma que el modelo diferencia bien entre las clases.  
+**F1-Score de 84.25%** sugiere que el balance entre precisión y recall es óptimo.  
 
 ---
 
