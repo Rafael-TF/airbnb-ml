@@ -1,12 +1,8 @@
 # 🏠 Predicción de Precios y Clasificación de Alojamientos en Airbnb NYC 2019
 
-<p align="center">
-  <img src="https://upload.wikimedia.org/wikipedia/commons/a/a8/Airbnb_Logo_B%C3%A9lo.svg" width="150" />
-</p>
-
-[![Python](https://img.shields.io/badge/Python-3.8-blue.svg)](https://www.python.org/)  
-[![Streamlit](https://img.shields.io/badge/Streamlit-App-red.svg)](https://streamlit.io/)  
-[![Scikit-Learn](https://img.shields.io/badge/Scikit--Learn-ML-orange)](https://scikit-learn.org/stable/)  
+<div align="center">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/a/a8/Airbnb_Logo_B%C3%A9lo.svg" alt="Airbnb Logo" width="150" style="border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.3);"/>
+</div>
 
 📌 **Proyecto de Machine Learning** para predecir el **precio estimado** de un alojamiento y clasificar su **tipo de habitación** en **Airbnb NYC 2019** utilizando modelos de **Regresión y Clasificación**.  
 
@@ -15,8 +11,6 @@
 ---
 
 ## 🎯 **Objetivo del Proyecto**
-
-El propósito principal es analizar datos de **Airbnb NYC 2019** y construir modelos de Machine Learning para:  
 
 ✔️ **Predecir el precio** de un alojamiento basado en sus características.  
 ✔️ **Clasificar el tipo de habitación** en **Entire home/apt, Private room o Shared room**.  
@@ -28,10 +22,14 @@ Este análisis es útil para anfitriones y usuarios que deseen conocer tendencia
 
 ## 📊 **Modelos Utilizados**
 
-Se han desarrollado dos modelos principales:
+<div align="center">
 
-- **Regresión (Predicción de Precio)** → `Gradient Boosting Regressor`  
-- **Clasificación (Tipo de Habitación)** → `Random Forest Classifier`  
+| **Modelo** | **Tarea** | **Técnica Usada** |
+|------------|----------|------------------|
+| **Gradient Boosting Regressor** | Predicción de Precio | Regresión |
+| **Random Forest Classifier** | Clasificación de Tipo de Habitación | Clasificación |
+
+</div>
 
 Ambos modelos fueron **optimizados con `RandomizedSearchCV`** y evaluados con **validación cruzada (5-Fold)** para garantizar su generalización.  
 
@@ -39,38 +37,33 @@ Ambos modelos fueron **optimizados con `RandomizedSearchCV`** y evaluados con **
 
 ## 📈 **Resultados del Modelado**  
 
-### 🔵 **Modelo de Regresión (Predicción de Precio)**
+<div align="center">
 
-| **Métrica** | **Valor** |
-|------------|----------|
-| **R² (Test)**  | 0.9978   |
-| **MAE**        | 0.0131   |
-| **RMSE**       | 0.0273   |
-| **MAPE**       | 2.66%    |
+| **Métrica** | **Regresión (Precio)** | **Clasificación (Tipo de Habitación)** |
+|------------|----------------|------------------------|
+| **R² (Test)**  | 0.9978 | - |
+| **MAE** | 0.0131 | - |
+| **RMSE** | 0.0273 | - |
+| **MAPE** | 2.66% | - |
+| **Accuracy** | - | 84.36% |
+| **Precision** | - | 84.18% |
+| **Recall** | - | 84.36% |
+| **F1-Score** | - | 84.25% |
+| **AUC** | - | 92.16% |
 
-📌 **Interpretación:**  
-- 🔹 **R² de 0.9978**, lo que indica una predicción altamente precisa del precio.  
-- 🔹 **MAE = 0.0131**, margen de error muy bajo.  
-- 🔹 **MAPE del 2.66%**, diferencia mínima entre precios reales y predichos.  
-
-### 🔴 **Modelo de Clasificación (Tipo de Habitación)**
-
-| **Métrica**  | **Valor**  |
-|-------------|-----------|
-| **Accuracy**  | 84.36%   |
-| **Precision** | 84.18%   |
-| **Recall**    | 84.36%   |
-| **F1-Score**  | 84.25%   |
-| **AUC**       | 92.16%   |
-
-📌 **Interpretación:**  
-- 🔹 **Accuracy del 84.36%**, indica alta capacidad de clasificación.  
-- 🔹 **AUC de 92.16%**, buen desempeño en la diferenciación de clases.  
-- 🔹 **F1-Score de 84.25%**, balance óptimo entre precisión y recall.  
+</div>
 
 ---
 
 ## ⚙️ **Tecnologías Utilizadas**
+
+<div align="center">
+
+![Python](https://img.shields.io/badge/Python-3.8-blue.svg)  
+![Streamlit](https://img.shields.io/badge/Streamlit-App-red.svg)  
+![Scikit-Learn](https://img.shields.io/badge/Scikit--Learn-ML-orange)
+
+</div>
 
 📌 **Lenguaje y Librerías:**
 
@@ -115,15 +108,20 @@ streamlit run app.py
 
 ---
 
-## 👨‍💻 **Sobre Mí**
+## 🌐 Contacto
 
-📌 **Rafael Travado** - Desarrollador Web Full Stack y entusiasta de Machine Learning.  
+<div align="center">
 
-📫 **Contacto:**  
-- 📧 [rafa_trafeg@hotmail.com](mailto:rafa_trafeg@hotmail.com)  
-- 🌍 [Portfolio](https://rafaeltravado.netlify.app/)  
-- 🔗 [LinkedIn](https://www.linkedin.com/in/rafael-travado-4a1b6437/)  
+📧 **Correo Electrónico:** [<rafa_trafeg@hotmail.com>](mailto:rafa_trafeg@hotmail.com)  
+🌍 **Portfolio:** [rafaeltravado.netlify.app](https://rafaeltravado.netlify.app/)  
+🔗 **LinkedIn:** [linkedin.rafael-travado](https://www.linkedin.com/in/rafael-travado-4a1b6437/)  
 
-📢 **Si te ha gustado el proyecto, dale una ⭐ en GitHub! 🚀**  
+</div>
+
+---
+
+<div align="center" style="margin-top: 30px;">
+  <p style="font-size: 16px; color: #555;">📢 **Si te ha gustado el proyecto, dale una ⭐ en GitHub! 🚀**</p>
+</div>
 
 📊 **Data Science & Machine Learning en Acción** 🚀
